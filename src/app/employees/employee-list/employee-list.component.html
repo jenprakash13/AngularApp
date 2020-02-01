@@ -1,1 +1,13 @@
-<p>employee-list works!</p>
+{{responseMsg}}
+<table class="table table-hover">
+    <tr *ngFor ="let user of service.userList">
+        <td (click)="assignValue(user)">{{user.id}}</td>
+        <td (click)="assignValue(user)">{{user.email}}</td>
+        <td (click)="assignValue(user)">{{user.first_name}}</td>
+        <td (click)="assignValue(user)">{{user.last_name}}</td>
+        <td><button (click)="deleteUser(user.id)" class="btn btn-sm btn-outline-danger">X</button></td>
+    </tr>
+    
+    
+    
+</table>

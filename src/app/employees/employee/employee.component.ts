@@ -10,7 +10,11 @@ import { format } from 'url';
 })
 export class EmployeeComponent implements OnInit {
 
+   responseMsg;
+
   constructor( private service : EmployeeService) { }
+
+ 
 
   ngOnInit() {
     this.resetFormValues();
@@ -29,11 +33,26 @@ export class EmployeeComponent implements OnInit {
   }
 
   onSubmit(form : NgForm){
-    this.insertRecord(form);
+    if( form.value.id === null){
+      this.insertRecord(form);
+      this.responseMsg = "Data insert sucessfully";
+      this.service.userListData();
+    }else{
+      this.updateRecord(form);
+      this.responseMsg = "Data Update sucessfully";
+      this.service.userListData();
+    }
+    
   }
 
   insertRecord(form : NgForm){
-    this.service.postEmployee(form.value).subscribe(res =>{
+    this.service.postUser(form.value).subscribe(res =>{
+      this.resetFormValues(form);
+    });
+  }
+
+  updateRecord(form : NgForm){
+    this.service.updateUser(form.value).subscribe(res =>{
       this.resetFormValues(form);
     });
   }
